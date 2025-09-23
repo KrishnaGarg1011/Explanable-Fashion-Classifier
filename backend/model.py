@@ -1,26 +1,22 @@
 # backend/model.py
 import torch
 import torch.nn as nn
-import os
 
-class SimpleFashionNet(nn.Module):
+# Example model architecture (adjust to your trained model)
+class FashionNet(nn.Module):
     def __init__(self, num_classes=10):
-        super().__init__()
-        # Using resnet18 backbone for demo; replace with your actual model
-        self.backbone = torch.hub.load('pytorch/vision:v0.13.1', 'resnet18', pretrained=False)
-        self.backbone.fc = nn.Linear(self.backbone.fc.in_features, num_classes)
+        super(FashionNet, self).__init__()
+        self.model = torch.hub.load("pytorch/vision", "resnet18", pretrained=False)
+        self.model.fc = nn.Linear(self.model.fc.in_features, num_classes)
 
     def forward(self, x):
-        return self.backbone(x)
+        return self.model(x)
 
-def load_model(path="model.pt", device=None, num_classes=10):
+# Load trained model
+def load_model(path="model/model.pt", device=None, num_classes=10):
     if device is None:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = SimpleFashionNet(num_classes=num_classes).to(device)
-    if os.path.exists(path):
-        state = torch.load(path, map_location=device)
-        model.load_state_dict(state)
-    else:
-        print(f"[warning] model file {path} not found. Using randomly initialized model.")
+    model = FashionNet(num_classes=num_classes).to(device)
+    model.load_state_dict(torch.load(path, map_location=device))
     model.eval()
     return model, device
