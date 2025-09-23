@@ -1,0 +1,5 @@
+backend/uploads/
+backend/database.db
+backend/model.pt
+__pycache__/
+.env
