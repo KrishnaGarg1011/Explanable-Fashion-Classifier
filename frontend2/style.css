@@ -1,0 +1,7 @@
+/* frontend/style.css */
+body { font-family: Arial, sans-serif; background:#f7f7f8; color:#222; }
+.container { max-width:900px; margin:24px auto; padding:16px; }
+.card { background:#fff; padding:12px; margin:12px 0; border-radius:8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display:inline-block; vertical-align:top; margin-right:12px; }
+#grid .card { width:220px; text-align:center; }
+img { border-radius:6px; }
+button {padding:8px 12px; margin-left:8px;}
