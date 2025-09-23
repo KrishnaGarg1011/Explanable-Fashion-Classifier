@@ -1,31 +1,15 @@
-<!-- frontend/index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Explainable Fashion Classifier</title>
-  <link rel="stylesheet" href="style.css">
+    <title>Fashion Classifier Upload</title>
 </head>
 <body>
-  <div class="container">
-    <h1>Explainable Fashion Classifier</h1>
+    <h2>Upload an Image</h2>
+    <input type="file" id="imageInput">
+    <button onclick="uploadImage()">Upload</button>
 
-    <input id="fileInput" type="file" accept="image/*">
-    <button id="uploadBtn">Upload & Save</button>
-    <button id="classifyBtn">Upload & Classify</button>
+    <h3 id="result"></h3>
 
-    <div id="result" class="card" style="display:none;">
-      <h3>Prediction</h3>
-      <img id="preview" src="" alt="" width="300">
-      <p id="label"></p>
-      <p id="confidence"></p>
-      <p id="explanation"></p>
-      <h4>Grad-CAM</h4>
-      <img id="cam" src="" width="300" alt="">
-    </div>
-
-    <p><a href="/gallery">Go to gallery</a></p>
-  </div>
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
