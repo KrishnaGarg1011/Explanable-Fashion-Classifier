@@ -4,7 +4,6 @@ from datetime import datetime
 
 DB_PATH = "database.db"
 
-# Initialize the database and create table if not exists
 def init_db():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -21,7 +20,6 @@ def init_db():
     conn.commit()
     conn.close()
 
-# Insert a new uploaded image record
 def insert_image(filename, label, confidence, explanation):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -32,7 +30,6 @@ def insert_image(filename, label, confidence, explanation):
     conn.commit()
     conn.close()
 
-# Fetch all records (optional, for display)
 def get_all_images():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -41,5 +38,4 @@ def get_all_images():
     conn.close()
     return rows
 
-# Initialize DB at import
 init_db()
