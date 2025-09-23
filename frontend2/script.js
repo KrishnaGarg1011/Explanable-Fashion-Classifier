@@ -1,27 +1,26 @@
-// frontend/script.js
+function uploadImage() {
+    const input = document.getElementById("imageInput");
+    const file = input.files[0];
 
-document.getElementById("uploadBtn").addEventListener("click", async () => {
-  const f = document.getElementById("fileInput").files[0];
-  if (!f) return alert("Select an image first");
-  const fd = new FormData();
-  fd.append("image", f);
-  const res = await fetch("/upload", { method: "POST", body: fd });
-  const j = await res.json();
-  alert("Saved as " + j.filename);
-});
+    if (!file) {
+        alert("Please select an image first!");
+        return;
+    }
 
-document.getElementById("classifyBtn").addEventListener("click", async () => {
-  const f = document.getElementById("fileInput").files[0];
-  if (!f) return alert("Select an image first");
-  const fd = new FormData();
-  fd.append("image", f);
-  const res = await fetch("/predict", { method: "POST", body: fd });
-  const j = await res.json();
-  // update UI
-  document.getElementById("result").style.display = "block";
-  document.getElementById("preview").src = j.image_url;
-  document.getElementById("label").innerText = "Label: " + j.label;
-  document.getElementById("confidence").innerText = "Confidence: " + j.confidence.toFixed(3);
-  document.getElementById("explanation").innerText = j.explanation;
-  document.getElementById("cam").src = j.cam_url || '';
-});
+    const formData = new FormData();
+    formData.append("image", file);
+
+    // Replace with your backend URL if deployed
+    fetch("http://127.0.0.1:5000/upload", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("result").innerText = 
+            `Label: ${data.label}\nConfidence: ${data.confidence}\nExplanation: ${data.explanation}`;
+    })
+    .catch(error => {
+        console.error("Error uploading image:", error);
+    });
+}
