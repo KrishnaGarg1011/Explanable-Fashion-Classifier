@@ -1,7 +1,0 @@
-flask==2.3.2
-torch==2.2.0
-torchvision==0.17.0
-pillow==10.0.0
-numpy==1.26.2
-pytorch-grad-cam==1.5.1
-werkzeug==3.0.0
