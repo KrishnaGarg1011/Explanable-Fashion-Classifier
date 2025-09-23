@@ -7,11 +7,16 @@ function uploadImage() {
         return;
     }
 
+    // Show the uploaded image
+    const uploadedImg = document.getElementById("uploadedImage");
+    uploadedImg.src = URL.createObjectURL(file);
+    uploadedImg.style.display = "block";
+
+    // Send to backend
     const formData = new FormData();
     formData.append("image", file);
 
-    // Replace with your backend URL if deployed
-    fetch("http://127.0.0.1:5000/upload", {
+    fetch("http://127.0.0.1:5000/upload", {  // replace with your deployed backend URL if needed
         method: "POST",
         body: formData
     })
