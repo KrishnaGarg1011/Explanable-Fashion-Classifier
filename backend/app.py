@@ -1,19 +1,21 @@
+# backend/app.py
 from flask import Flask, request, jsonify
 import os
-from database import insert_image  # import our database helper
-from model import load_model       # your trained model loader
+from database import insert_image
+from model import load_model
 from torchvision import transforms
 from PIL import Image
 import torch
 
 app = Flask(__name__)
+
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Load trained model
+# Load your trained model
 model, device = load_model("model/model.pt")
 
-# Image transforms
+# Image preprocessing (adjust if needed)
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -29,7 +31,7 @@ def upload():
     filepath = os.path.join(UPLOAD_FOLDER, filename)
     file.save(filepath)
 
-    # Run model prediction
+    # Model prediction
     img = Image.open(filepath).convert("RGB")
     x = transform(img).unsqueeze(0).to(device)
     with torch.no_grad():
@@ -40,7 +42,7 @@ def upload():
 
     explanation = f"Predicted class {pred_idx} with confidence {confidence:.2f}"
 
-    # Insert into database
+    # Store metadata in DB
     insert_image(filename, str(pred_idx), confidence, explanation)
 
     return jsonify({
