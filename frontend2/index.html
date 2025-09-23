@@ -2,12 +2,19 @@
 <html>
 <head>
     <title>Fashion Classifier Upload</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h2>Upload an Image</h2>
     <input type="file" id="imageInput">
     <button onclick="uploadImage()">Upload</button>
 
+    <!-- Display uploaded image -->
+    <div id="uploadedImageContainer">
+        <img id="uploadedImage" src="" alt="" style="display:none; max-width:300px; margin-top:20px; border-radius:8px;"/>
+    </div>
+
+    <!-- Display prediction results -->
     <h3 id="result"></h3>
 
     <script src="script.js"></script>
